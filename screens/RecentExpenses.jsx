@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import ExpensesOutput from "../components/ExpensesOutput/ExpensesOutput";
-import LaodingOverlay from "../components/UI/LoadingOverlay";
+import LoadingOverlay from "../components/UI/LoadingOverlay";
 import ErrorOverlay from "../components/UI/ErrorOverlay";
 
 import { ExpensesContext } from "../store/expenses-context";
@@ -33,7 +33,7 @@ function RecentExpenses() {
     }
 
     if (isFetching) {
-        return <LaodingOverlay />;
+        return <LoadingOverlay />;
     }
 
     const recentExpenses = expensesCtx.expenses.filter((expense) => {

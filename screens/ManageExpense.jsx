@@ -6,7 +6,7 @@ import { GlobalStyles } from "../constants/styles";
 import { ExpensesContext } from "../store/expenses-context";
 import ExpenseForm from "../components/ManageExpense/ExpenseForm";
 import { deleteExpense, storeExpense, updateExpense } from "../util/http";
-import LaodingOverlay from "../components/UI/LoadingOverlay";
+import LoadingOverlay from "../components/UI/LoadingOverlay";
 import ErrorOverlay from "../components/UI/ErrorOverlay";
 
 const { colors } = GlobalStyles;
@@ -66,7 +66,7 @@ function ManageExpense({ route, navigation }) {
     }
 
     if (isSubmiting) {
-        return <LaodingOverlay />;
+        return <LoadingOverlay />;
     }
 
     return (

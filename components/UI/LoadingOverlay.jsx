@@ -2,7 +2,7 @@ import { View, ActivityIndicator, StyleSheet } from "react-native";
 
 import { GlobalStyles } from "../../constants/styles";
 
-function LaodingOverlay() {
+function LoadingOverlay() {
     return (
         <View style={styles.container}>
             <ActivityIndicator size="large" color="white" />
@@ -10,7 +10,7 @@ function LaodingOverlay() {
     );
 }
 
-export default LaodingOverlay;
+export default LoadingOverlay;
 
 const styles = StyleSheet.create({
     container: {
