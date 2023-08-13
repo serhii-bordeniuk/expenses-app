@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -10,6 +10,8 @@ import RecentExpenses from "./screens/RecentExpenses";
 import AllExpenses from "./screens/AllExpenses";
 import LoginScreen from "./screens/LoginScreen";
 import SignupScreen from "./screens/SignupScreen";
+import AppLoading from "expo-app-loading";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { GlobalStyles } from "./constants/styles";
 import IconButton from "./components/UI/IconButton";
@@ -72,6 +74,29 @@ function Navigation() {
     );
 }
 
+function Root() {
+    const [isTryingLogin, setIsTryingLogin] = useState(true);
+    const authCtx = useContext(AuthContext);
+
+    useEffect(() => {
+        async function fetchToken() {
+            const storedToken = await AsyncStorage.getItem("token");
+            if (storedToken) {
+                authCtx.authenticate(storedToken);
+            }
+
+            setIsTryingLogin(false);
+        }
+
+        fetchToken();
+    }, []);
+
+    if (isTryingLogin) {
+        return <AppLoading />;
+    }
+    return <Navigation />;
+}
+
 function ExpensesOverview() {
     const authCtx = useContext(AuthContext);
     return (
@@ -131,7 +156,7 @@ export default function App() {
             <AuthContextProvider>
                 <ExpensesContextProvider>
                     {/* <NavigationContainer> */}
-                    <Navigation />
+                    <Root />
                     {/* </NavigationContainer> */}
                 </ExpensesContextProvider>
             </AuthContextProvider>

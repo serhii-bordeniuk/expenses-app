@@ -5,6 +5,9 @@ const API_KEY = "AIzaSyBa5seS4CeQHgm-8EbkzybBTAmFIXt5YcI";
 async function authenticate(mode, email, password) {
     const url = `https://identitytoolkit.googleapis.com/v1/accounts:${mode}?key=${API_KEY}`;
 
+    if (mode === "signUp") {
+    }
+
     const response = await axios.post(url, {
         email: email,
         password: password,
